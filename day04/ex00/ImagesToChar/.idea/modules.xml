@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ImagesToChar.iml" filepath="$PROJECT_DIR$/ImagesToChar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src.java.edu.school21.printer/src.java.edu.school21.printer.iml" filepath="$PROJECT_DIR$/src.java.edu.school21.printer/src.java.edu.school21.printer.iml" />
+    </modules>
+  </component>
+</project>
