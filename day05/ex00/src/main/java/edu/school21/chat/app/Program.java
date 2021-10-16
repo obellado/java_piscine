@@ -1,11 +1,16 @@
-package edu.school21.chat.models;
+package edu.school21.chat.app;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import edu.school21.chat.repositories.MessageRepository;
+import edu.school21.chat.repositories.MessagesRepositoryJdbcImpl;
 
 import java.io.File;
 import java.sql.*;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class Chat {
+public class Program {
     static final String JDBC_DRIVER = "org.postgresql.Driver";
     static final String DB_URL = "jdbc:postgresql://localhost:5432/library";
     private static final String DB_SCHEMA = "/resources/schema.sql";
@@ -14,17 +19,30 @@ public class Chat {
     static final String USER = "postgres";
     static final String PASS = "123";
 
+    private static HikariConfig config = new HikariConfig();
+    private static HikariDataSource ds;
+    static {
+        config.setJdbcUrl( DB_URL );
+        config.setUsername( USER );
+        config.setPassword( PASS );
+        config.addDataSourceProperty( "cachePrepStmts" , "true" );
+        config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
+        config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+        ds = new HikariDataSource( config );
+    }
+
     public static void main(String[] args) {
-        Connection connection = null;
         try {
-            Class.forName(JDBC_DRIVER);
-            System.out.println("Connecting to database...");
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            Connection connection = ds.getConnection();
+            MessageRepository msgRepository = new MessagesRepositoryJdbcImpl(connection);
             System.out.println("Creating tables...");
             tryPostgreSQL(connection, DB_SCHEMA);
             System.out.println("Creating data...");
             tryPostgreSQL(connection, DB_DATA);
-            System.out.println("Finito!");
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter a message ID:");
+            Long id = scanner.nextLong();
+            System.out.println(msgRepository.findById(id));
             connection.close();
         } catch (Exception e) {
             e.printStackTrace();
