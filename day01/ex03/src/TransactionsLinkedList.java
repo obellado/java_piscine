@@ -6,7 +6,6 @@ public class TransactionsLinkedList implements TransactionsList {
     private TransactionsLinkedList previous;
     private int size;
 
-
     TransactionsLinkedList() {
         this.transaction = null;
         this.next = null;
@@ -19,17 +18,8 @@ public class TransactionsLinkedList implements TransactionsList {
         this.previous = null;
     }
 
-    public class TransactionNotFoundException extends RuntimeException {
-
-    }
-
     @Override
     public void add(Transaction t) {
-//        if (this.transaction == null) {
-//            this.transaction = t;
-//            this.size = 1;
-//            return ;
-//        }
         this.size++;
         TransactionsLinkedList node = new TransactionsLinkedList(t);
         node.next = this.next;
@@ -65,8 +55,6 @@ public class TransactionsLinkedList implements TransactionsList {
     @Override
     public Transaction[] toArray() {
         TransactionsLinkedList tmp = this.next;
-
-        //System.out.println("n of trans = " + this.size);
         Transaction[] arr = new Transaction[this.size];
         for (int i = 0; i < this.size ; i++) {
             arr[i] = tmp.transaction;
@@ -75,3 +63,5 @@ public class TransactionsLinkedList implements TransactionsList {
         return arr;
     }
 }
+
+

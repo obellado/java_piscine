@@ -12,7 +12,6 @@ public class User {
             this.Identifier = UserIDAmount;
         } else
             throw new ExceptionInInitializerError();
-            //System.err.println("Cannot create User with negative Balance");
     }
 
     public Integer getBalance() {
@@ -30,7 +29,10 @@ public class User {
     public void setIdentifier(Integer identifier) {
         Identifier = identifier;
     }
-    public void setBalance(Integer balance) {
+
+    public void setBalance(Integer balance) throws Exception {
+        if (balance < 0)
+            throw new Exception();
         Balance = balance;
     }
 

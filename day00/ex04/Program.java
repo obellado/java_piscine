@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main{
+public class Program {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         String line = scan.nextLine();
@@ -24,25 +24,29 @@ public class Main{
                     i++;
             }
             fillTable(chars, counts, ch, count);
-            //System.out.println(ch);
-            //System.out.println(count);
         }
         paintTable(chars,counts);
     }
     public static void paintTable(char[] chars, int[] counts){
         int d = counts[0];
-        System.out.println();
-        System.out.println();
-
-        for (int i = 10; i > 0; i--) {
+        int[] flags = new int[10];
+        for (int i = 11; i > 0; i--) {
             for (int j = 0; j < 10; j++) {
-                if (counts[j] * 10 / (d * i) >= 1)
-                    System.out.print("#    ");
+                if (counts[j] * 11 / (d * i) >= 1)
+                    if (flags[j] == 0) {
+                        System.out.print("   " + counts[j]);
+                        flags[j] = 1;
+                    } else
+                        System.out.print("   #");
             }
             System.out.println();
         }
-        System.out.println(chars);
+        for (int i = 0; i < 10; i++) {
+            System.out.print("   " + chars[i]);
+        }
+        System.out.println();
     }
+
     public static void fillTable(char[] chars, int[] counts, char c, int n) {
         int index = 10;
         for (int i = 9; i >= 0; i--) {

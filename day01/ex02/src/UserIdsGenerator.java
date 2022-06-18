@@ -4,12 +4,10 @@ public final class UserIdsGenerator {
 
     private UserIdsGenerator(){
         Id = 0;
-        //System.err.println("constructor");
     }
 
     public static UserIdsGenerator getInstance() {
         if (instance == null) {
-            //System.err.println("getU");
             instance = new UserIdsGenerator();
         }
         return (instance);

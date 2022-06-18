@@ -8,12 +8,10 @@ public class User {
         if (balance >= 0) {
             this.Name = name;
             this.Balance = balance;
-            //System.err.println("User constructor");
             this.Identifier = UserIdsGenerator.getInstance().generateId();
             transactions = new TransactionsLinkedList();
         } else
             throw new ExceptionInInitializerError();
-            //System.err.println("Cannot create User with negative Balance");
     }
     public User(){
         this.Identifier = UserIdsGenerator.getInstance().generateId();
@@ -31,9 +29,13 @@ public class User {
     public void setName(String name) {
         Name = name;
     }
-    public void setBalance(Integer balance) {
+
+    public void setBalance(Integer balance) throws Exception {
+        if (balance < 0)
+            throw new Exception();
         Balance = balance;
     }
+
     public TransactionsList getTransactions() { return transactions; }
 
     @Override

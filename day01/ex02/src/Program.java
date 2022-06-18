@@ -28,15 +28,11 @@ public class Program {
             A.addUser(B10);
             A.addUser(B11);
             System.out.println(A.size());
-            //Transaction one = new Transaction(A, B, TransferCategory.DEBITS, 100);
-            //Transaction two = new Transaction(A, B, TransferCategory.CREDITS, 100000);
             System.out.println(A);
             System.out.println("Retrieved Number : " + A.retrieveNumber());
             System.out.println("Retrieved by ID(3) : " + A.retrieveByID(3));
             System.out.println("Retrieved by index(2) : " + A.retrieveByIndex(2));
             System.out.println("Retrieved by ID (out of boundaries) : " + A.retrieveByID(19));
-            //System.out.println(one);
-            //System.out.println(two);
         } catch (Throwable e) {
             System.out.println("Oops!");
         }
