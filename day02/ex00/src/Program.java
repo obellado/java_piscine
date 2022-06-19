@@ -5,10 +5,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Program {
-    private static final String signatureAddress = "/Users/obellado/Desktop/Java_In_Progress/day02/ex00/signatures.txt";
+    private static final String signatureAddress = "/Users/obellado/Desktop/java_piscine/day02/ex00/signatures.txt";
     private static final String signatureAddress2 = "../signatures.txt";
-
-    //public static List<String> parseSignaturesFlow
 
     public static void main(String[] args) {
 
@@ -25,17 +23,5 @@ public class Program {
         } catch (IOException e) {
             System.out.println("Oops!");
         }
-
-
-
-//        while (scanner.hasNextLine()) {
-//            String hex = SignatureParser.signatureParser(new scanner.nextLine());
-
-            //String result = SignatureParser.signatureCompare(hex, data);
-       // }
-
-
-        //Map<int[], String> signData =
-
     }
 }
