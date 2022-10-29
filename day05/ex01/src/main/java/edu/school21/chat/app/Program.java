@@ -2,8 +2,7 @@ package edu.school21.chat.app;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import edu.school21.chat.repositories.MessageRepository;
-import edu.school21.chat.repositories.MessagesRepositoryJdbcImpl;
+import edu.school21.chat.repositories.*;
 
 import java.io.File;
 import java.sql.*;
@@ -12,7 +11,7 @@ import java.util.Scanner;
 
 public class Program {
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://localhost:5432/library";
+    static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DB_SCHEMA = "/resources/schema.sql";
     private static final String DB_DATA = "/resources/data.sql";
 
@@ -35,6 +34,8 @@ public class Program {
         try {
             Connection connection = ds.getConnection();
             MessageRepository msgRepository = new MessagesRepositoryJdbcImpl(connection);
+//            UserRepository usersRepository = new UserRepositoryJdbcImpl(connection);
+//            ChatroomRepository chatroomRepository = new ChatroomRepositoryJdbcImpl(connection);
             System.out.println("Creating tables...");
             tryPostgreSQL(connection, DB_SCHEMA);
             System.out.println("Creating data...");
@@ -51,7 +52,7 @@ public class Program {
 
     public static void tryPostgreSQL(Connection connection, String filename){
         try {
-            File file = new File("/Users/obellado/Desktop/Java_In_Progress/day05/ex00/src/main" + filename);
+            File file = new File("/Users/obellado/Desktop/java-piscine/day05/ex01/src/main" + filename);
             Scanner scanner = new Scanner(file).useDelimiter(";");
             while (scanner.hasNext())
                 connection.createStatement().execute(scanner.next());
