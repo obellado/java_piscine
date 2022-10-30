@@ -2,11 +2,15 @@ package edu.school21.chat.app;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import edu.school21.chat.models.Chatroom;
+import edu.school21.chat.models.Message;
 import edu.school21.chat.models.User;
 import edu.school21.chat.repositories.*;
 
 import java.io.File;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -40,10 +44,11 @@ public class Program {
             System.out.println("Creating data...");
             tryPostgreSQL(connection, DB_DATA);
             Scanner scanner = new Scanner(System.in);
-//            User user = new User(10L, "saveTest", "s")
-//            System.out.println("Enter a message ID:");
-//            Long id = scanner.nextLong();
-//            System.out.println(msgRepository.findById(id));
+            User user = new User(1L, "test_user", "test", new ArrayList<>(), new ArrayList<>());
+            Chatroom room = new Chatroom(1L, "test_room", user, new ArrayList<>());
+            Message message = new Message(null, user, room, "hello!", LocalDateTime.now());
+            msgRepository.save(message);
+            System.out.println(message.getId());
             connection.close();
         } catch (Exception e) {
             e.printStackTrace();

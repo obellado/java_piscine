@@ -1,5 +1,6 @@
 package edu.school21.chat.repositories;
 
+import edu.school21.chat.exceptions.NotSavedSubEntityException;
 import edu.school21.chat.models.Chatroom;
 import edu.school21.chat.models.Message;
 import edu.school21.chat.models.User;
@@ -9,6 +10,8 @@ import java.util.Optional;
 
 public class MessagesRepositoryJdbcImpl implements MessageRepository {
     private final String QUERY_TEMPLATE = "SELECT * FROM chat.messages WHERE id=";
+
+    private final String QUERY_TEMPLATE_INSERT = "INSERT INTO chat.messages (author, room, text, timestamp) VALUES (?, ?, ?, ?) RETURNING *";
     private final Connection connection;
     private final UserRepository usersRepository;
     private final ChatroomRepository chatroomRepository;
@@ -36,6 +39,19 @@ public class MessagesRepositoryJdbcImpl implements MessageRepository {
 
     @Override
     public void save(Message message) throws SQLException {
-
+        if (!usersRepository.findById(message.getAuthor().getUserID()).isPresent()) {
+            throw new NotSavedSubEntityException("No user with this ID in database");
+        }
+        if (!chatroomRepository.findById(message.getRoom().getId()).isPresent()) {
+            throw new NotSavedSubEntityException("No chatroom with this ID in database");
+        }
+        PreparedStatement stmt = connection.prepareStatement(QUERY_TEMPLATE_INSERT);
+        stmt.setLong(1, message.getAuthor().getUserID());
+        stmt.setLong(2, message.getRoom().getId());
+        stmt.setString(3, message.getText());
+        stmt.setTimestamp(4, Timestamp.valueOf(message.getMessageDateTime()));
+        ResultSet resultSet = stmt.executeQuery();
+        resultSet.next();
+        message.setId(resultSet.getLong("id"));
     }
 }

@@ -10,7 +10,7 @@ public class User {
     private List<Chatroom> createdRooms;
     private List<Chatroom> joinedRooms;
 
-    public User(long id, String login, String password, List<Chatroom> cr, List<Chatroom> jr){
+    public User(Long id, String login, String password, List<Chatroom> cr, List<Chatroom> jr){
         this.UserID = id;
         this.Login = login;
         this.Password = password;
