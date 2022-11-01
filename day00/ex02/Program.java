@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class Program {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int count = 0;
@@ -19,7 +19,7 @@ public class Main {
     }
 
     public static boolean intIsPrime(int number) {
-        System.out.println("len = "+number);
+//        System.out.println("len = "+number);
         if (number <= 1) {
             return (false);
         }
