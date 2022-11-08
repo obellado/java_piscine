@@ -8,9 +8,9 @@ import edu.school21.annotations.OrmEntity;
 public class User {
     @OrmColumnId
     private Long id;
-    @OrmColumn(name = "firstname", length = 10)
+    @OrmColumn(name = "first_name", length = 10)
     private String firstName;
-    @OrmColumn(name = "lastname", length = 10)
+    @OrmColumn(name = "last_name", length = 10)
     private String lastName;
     @OrmColumn(name = "age")
     private Integer age;
@@ -21,6 +21,8 @@ public class User {
         this.lastName = lastName;
         this.age = age;
     }
+
+    public User() {}
 
     public Long getId() {
         return id;
@@ -56,6 +58,11 @@ public class User {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
