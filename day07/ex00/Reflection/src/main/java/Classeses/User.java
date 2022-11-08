@@ -1,5 +1,6 @@
 package Classeses;
 
+import java.sql.SQLOutput;
 import java.util.StringJoiner;
 
 public class User {
@@ -18,7 +19,8 @@ public class User {
         this.height = height;
     }
     public int grow(int value) {
-        this.height += value; return height;
+        this.height += value;
+        return height;
     }
     @Override
     public String toString() {
